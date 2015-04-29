@@ -137,11 +137,11 @@ vector<Node*> Graph::BFS(){
 //////////////////////////////////////////////////
 ostream& operator << (std::ostream & out, const Node& aNode){
     int m = aNode.getNeighs().size();
-    out<< "node "<< aNode.getLabel()<<"; ";
+    out<< "node '"<< aNode.getLabel()<<"'; ";
     out<< m<<" neighs: ";
     for (int i=0;i<m;i++)
     {
-        out<<aNode.getNeighs()[i]->getLabel();
+        out<<"'"<<aNode.getNeighs()[i]->getLabel()<<"'";
         if (i<m-1) 
             out<<",";
     }
@@ -164,58 +164,5 @@ ostream& operator << (std::ostream & out,Graph & aGraph){
 }
 
 
-
-//////////////////////////////////////////////////
-// launch prog
-//////////////////////////////////////////////////
-int main()
-{
-  cout<< "debut main"<<endl;
-
-  Graph* myGraph = new Graph();
-
-  Node a;
-  cout <<a<< endl;
-  a.setLabel("hello");
-  Node b("who");
-  Node c("said");
-  Node d("xmas");
-
-  Node e("what");
-
-  vector<Node*> someVector;
-
-  someVector.push_back(&b);
-  someVector.push_back(&c);
-  someVector.push_back(&d);
-
-  a.add2Neighs(someVector );
-  c.add2Neighs(&d);
-  
-  cout<< a <<endl;
-  cout<< b <<endl;
-
-  myGraph->addNode(&a); 
-  myGraph->addNode(&b); 
-  myGraph->addNode(&c); 
-  myGraph->addNode(&d); 
-  myGraph->addNode(&e);
-
-  cout<<endl;
-  cout<< "this is the new graph: "<< (*myGraph);
-
-  vector<Node*> sortedNodes = myGraph->BFS();
-
-  for (vector<Node*>::iterator it =sortedNodes.begin();it!=sortedNodes.end();it++)
-  {
-    cout<< (*it)->getLabel()<<" | ";
-  }
-
-
-
-
-
-  cout<< "outtahere"<<endl;
-}
 
 
