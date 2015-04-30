@@ -1,0 +1,10 @@
+//'..//viz//gdotfile.dot'
+ 
+digraph graphName{ 
+    a->b->c->d;
+    b;
+    c->d;
+    d;
+    e;
+}
+
