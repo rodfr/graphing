@@ -141,23 +141,21 @@ void Graph::genDotFile(string fname)
 /* basic dot file creator*/
 {
     ofstream vizfile(fname);
+    string localnode="";
     if (vizfile.is_open())
     {
         vizfile <<"//'"<<fname<<"'\n "<<endl;
         vizfile <<"digraph graphName{ \n";
         for (vector<Node*>::iterator it= this->allNodes.begin();it!= this->allNodes.end();it++)
         {  
-            
-            vizfile <<"    "<<(*it)->getLabel(); // 4 spaces instead of tabulation
+            localnode  = (*it)->getLabel();
             if (( (*it)-> getNeighs().size() >0) && ((*it)!= NULL))
             { 
-                cout << "still here";
                 for  (vector<Node*>::iterator jt=(*it)->getNeighs().begin();jt!= (*it)->getNeighs().end();jt++)
                 {
-                    vizfile << "->"<<(*jt)->getLabel();
+                    vizfile << "    "<<localnode << "->"<<(*jt)->getLabel()<< ";\n";
                 }
             }
-            vizfile << ";\n";
         };
         vizfile <<"}\n";
         vizfile <<"\n";
