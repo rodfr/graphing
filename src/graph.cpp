@@ -2,10 +2,12 @@
 // functions for mlgc
 // by frg
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <deque>
-using namespace std;;
+using namespace std;
+
 //#include <fstream> //pour lire les fichiers
 
 class Node{
@@ -39,6 +41,8 @@ class Graph{
         bool isNodeInGraph(Node *aNode);
         vector<Node*> getAllNodes(){return allNodes;}
         vector<Node*> BFS();
+        void genDotFile(string fname = "..//viz//gdotfile.dot");
+
     private:
         int nEdges;
         int nNodes;
@@ -132,9 +136,42 @@ vector<Node*> Graph::BFS(){
     return allBFSorted;
 }
 
+
+void Graph::genDotFile(string fname)
+/* basic dot file creator*/
+{
+    ofstream vizfile(fname);
+    if (vizfile.is_open())
+    {
+        vizfile <<"//'"<<fname<<"'\n "<<endl;
+        vizfile <<"digraph graphName{ \n";
+        for (vector<Node*>::iterator it= this->allNodes.begin();it!= this->allNodes.end();it++)
+        {  
+            
+            vizfile <<"    "<<(*it)->getLabel(); // 4 spaces instead of tabulation
+            if (( (*it)-> getNeighs().size() >0) && ((*it)!= NULL))
+            { 
+                cout << "still here";
+                for  (vector<Node*>::iterator jt=(*it)->getNeighs().begin();jt!= (*it)->getNeighs().end();jt++)
+                {
+                    vizfile << "->"<<(*jt)->getLabel();
+                }
+            }
+            vizfile << ";\n";
+        };
+        vizfile <<"}\n";
+        vizfile <<"\n";
+        vizfile.close();
+    }
+    else 
+        cout << "Unable to open file";
+}
+
+
 //////////////////////////////////////////////////
 // external fns
 //////////////////////////////////////////////////
+
 ostream& operator << (std::ostream & out, const Node& aNode){
     int m = aNode.getNeighs().size();
     out<< "node '"<< aNode.getLabel()<<"'; ";

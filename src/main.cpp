@@ -39,7 +39,7 @@ int main()
   myGraph->addNode(&d); 
   myGraph->addNode(&e);
 
-  cout<<"\n his is the new graph: "<< (*myGraph)<<endl;
+  cout<<"\n this is the new graph: "<< (*myGraph)<<endl;
 
   vector<Node*> sortedNodes = myGraph->BFS();
 
@@ -47,6 +47,8 @@ int main()
   {
     cout<< (*it)->getLabel()<<" | ";
   } 
+
+  myGraph->genDotFile();
 
   cout<< "outtahere"<<endl;
 }
